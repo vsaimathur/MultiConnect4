@@ -1,4 +1,4 @@
-const socket = io.connect("http://localhost:3000");
+const socket = io();
 
 // DOM Objects 
 const roomLink = document.getElementById("room-code");
