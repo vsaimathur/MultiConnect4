@@ -238,6 +238,38 @@ io.on("connection",(socket) => {
 		}
 	});
 
+	socket.on("disconnect", () => {
+		let currentDeleteRoomID = socketRooms[socket.id];
+		let currentRoomDeleteUserCount = roomUserCount[currentDeleteRoomID];
+		let currentRoomSocketArr = roomUserSockets[currentDeleteRoomID];
+		if(currentRoomSocketArr === undefined)
+		{
+			return 0;
+		}
+		let currentRoomSocketArrDeleteIndex = currentRoomSocketArr.indexOf(socket.id);
+
+		//emitting playerDisconnected channel to let the other player know about it
+
+		io.to(currentDeleteRoomID).emit("playerDisconnected",{
+				disconnectedPlayerName : socketUsers[socket.id],
+				disconnectedPlayerNumber : currentRoomSocketArrDeleteIndex+1
+			});
+
+		if(currentRoomDeleteUserCount === 2)
+		{
+			roomUserSockets[currentDeleteRoomID] = currentRoomSocketArr.slice(0,currentRoomSocketArrDeleteIndex) + currentRoomSocketArr.slice(currentRoomSocketArrDeleteIndex + 1);
+			roomUserCount[socketRooms[socket.id]] = 1;
+		}
+		else if(currentRoomDeleteUserCount === 1)
+		{
+			delete roomUserSockets[currentDeleteRoomID];
+			delete roomUserCount[socketRooms[socket.id]];
+		}
+		delete socketUsers[socket.id];
+		delete socketRooms[socket.id];
+		console.log("SocketRoomArr : " + roomUserSockets[currentDeleteRoomID]);
+	});
+
 
 });
 
@@ -339,6 +371,12 @@ server.listen(PORT, () => {
 
 //**TO-DO -> retrive the gameState from cookies if net gets diconnected (do this at last if possible).
 
-//**TO-DO -> Error handling at place outside circle.
+//**TO-DO -> Error handling at place outside circle.(DONE)
 
 //**TO-DO -> sameSite -> none not working, default is lax, strict mode also availabe, fix this issue and transmit game to LAN
+			// Edit : found that in client script just wrote to connect to localhost , fixed to to automatically adjust and it worked. (DONE)
+
+//**TO-DO -> write code for on disconnection
+
+//**TO-DO -> make it possible to refresh the page for client by giving him/her a seperate cookie id and later identifying if he's already present in game
+			 // and maintain his game by sending gameState also as cookie (already mentioned above).
