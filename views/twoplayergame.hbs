@@ -1,0 +1,136 @@
+<html>
+	<head>
+		<title></title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<!-- including this base tag, loaded css without giving those MIME type problem (not loading css) --> 
+		<base href="/">
+		<link rel="stylesheet" type="text/css" href="./css/twoplayergame.css"> 
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<!-- Navbar -->
+
+		<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+		    <ul class="navbar-nav">
+		      <li class="nav-item">
+		        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="rules.html">Rules</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="play.html">Play</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="dashboard.html">1P Dashboard</a>
+		      </li>
+		    </ul>
+		  </div>
+		</nav>
+
+		<div class="text-center text-danger" style="font-size: xx-large;">
+				This is Connect 4 Play Game Page!
+		</div>
+
+		<div class = "text-center text-danger" style="font-size: x-large;">
+			RoomLink : <a href = "{{roomLink}}" id = "room-code">{{roomLink}}</a>
+		</div>
+
+		<div class = "d-flex justify-content-around" id = "name-board"> 
+			<div id = "player1-name" class = "text-uppercase text-primary rounded" style="font-size: x-large;"></div>
+			<div id = "player2-name" class = "text-uppercase text-danger rounded" style="font-size: x-large;"></div>
+		</div>
+
+		<div id = "game-started-msg" class = "text-uppercase text-center" style="font-size: x-large; font-weight: bold">
+			Game Not Started!
+		</div>
+
+		<div id = "won-player-user-name" class = "text-uppercase text-center text-success" style="font-size: x-large; font-weight: bold">
+			<!-- Here userName of player who won will be displayed after game finishes-->
+		</div>
+
+		<div class = "center-box mt-auto d-flex flex-column">
+			<div class="container d-flex flex-column align-items-center">
+				<table border = '1px' id = "game-table">
+					<tr id="control_row">
+						<td id = "00"><div></div></td>
+						<td id = "01"><div></div></td>
+						<td id = "02"><div></div></td>
+						<td id = "03"><div></div></td>
+						<td id = "04"><div></div></td>
+						<td id = "05"><div></div></td>
+						<td id = "06"><div></div></td>
+					</tr>
+					<tr>
+						<td id = "10"><div></div></td>
+						<td id = "11"><div></div></td>
+						<td id = "12"><div></div></td>
+						<td id = "13"><div></div></td>
+						<td id = "14"><div></div></td>
+						<td id = "15"><div></div></td>
+						<td id = "16"><div></div></td>
+					</tr>
+					<tr>
+						<td id = "20"><div></div></td>
+						<td id = "21"><div></div></td>
+						<td id = "22"><div></div></td>
+						<td id = "23"><div></div></td>
+						<td id = "24"><div></div></td>
+						<td id = "25"><div></div></td>
+						<td id = "26"><div></div></td>
+					</tr>
+					<tr>
+						<td id = "30"><div></div></td>
+						<td id = "31"><div></div></td>
+						<td id = "32"><div></div></td>
+						<td id = "33"><div></div></td>
+						<td id = "34"><div></div></td>
+						<td id = "35"><div></div></td>
+						<td id = "36"><div></div></td>
+					</tr>
+					<tr>
+						<td id = "40"><div></div></td>
+						<td id = "41"><div></div></td>
+						<td id = "42"><div></div></td>
+						<td id = "43"><div></div></td>
+						<td id = "44"><div></div></td>
+						<td id = "45"><div></div></td>
+						<td id = "46"><div></div></td>
+					</tr>
+					<tr>
+						<td id = "50"><div></div></td>
+						<td id = "51"><div></div></td>
+						<td id = "52"><div></div></td>
+						<td id = "53"><div></div></td>
+						<td id = "54"><div></div></td>
+						<td id = "55"><div></div></td>
+						<td id = "56"><div></div></td>
+					</tr>
+					<tr>
+						<td id = "60"><div></div></td>
+						<td id = "61"><div></div></td>
+						<td id = "62"><div></div></td>
+						<td id = "63"><div></div></td>
+						<td id = "64"><div></div></td>
+						<td id = "65"><div></div></td>
+						<td id = "66"><div></div></td>
+					</tr>
+				</table>	
+			</div>
+		</div>
+
+		<footer class="footer bg-primary text-center text-white"> This page is a part of Omit </footer>
+
+
+		<script type="text/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
+		<script type="text/javascript" src = "./js/twoplayergame.js"></script>
+	    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	</body>
+</html>
+

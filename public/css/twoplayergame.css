@@ -1,0 +1,48 @@
+*{margin: 0; padding: 0; box-sizing: border-box; font-family: "Comic Sans MS"}
+
+body
+{
+	background-color: rgb(255, 204, 102);
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+
+#game-started-msg
+{
+	color : red;
+}
+
+table,tr,td
+{
+	min-height: 400px;
+	min-width: 100px;
+}
+
+.footer
+{
+	margin-top: auto;
+}
+
+tr#control_row td
+{
+	border : 0;
+	background-color: yellow;
+}
+.circle1 {
+    background: blue;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin : auto;
+    visibility: hidden;
+}
+.circle2 {
+	background: red;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin : auto;
+    visibility: hidden;
+}
