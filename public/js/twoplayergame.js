@@ -289,7 +289,7 @@ const controlButtonClicked = (event) => {
 	if((player1Script && playerTurn === 1)|| (player2Script & playerTurn ===2))
 	{
 		col = parseInt(event.target.parentNode.id[1]);
-		if(isNaN(col))
+		if(isNaN(col))	//exception handling for case when ball is shown but not clicked on it.
 		{
 			return 0;
 		}

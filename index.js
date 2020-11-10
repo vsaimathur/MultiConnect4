@@ -101,6 +101,7 @@ function TBDiagCheck()
 	return 0;
 }
 
+//bottom to top diagonal check
 function BTDiagCheck()
 {
 	for(k=3;k<=9;k++)					//make it dynamic later didn't understand clearly here.
@@ -132,6 +133,7 @@ function BTDiagCheck()
 	return 0;
 }
 
+// overall function for all logics used above
 function gameLogic()
 {
 	rowWin = rowCheck();
@@ -179,6 +181,10 @@ io.on("connection",(socket) => {
 		socket.join(data.roomID);
 
 		//adding user to room for our use to display userName disconnected msg when then user disconnects. 
+		if(roomUserSockets[data.roomID] == undefined)	//exception handling for case where there is no room like that.
+		{
+			return 0;
+		}
 		roomUserSockets[data.roomID].push(socket.id);
 
 		//after 2 users joining a room, sending their ball color and usernames to each other and also sending whose turn it is at start.
@@ -200,14 +206,19 @@ io.on("connection",(socket) => {
 			});
 		}
 
+		console.log('SocketUsersArr:');
 		console.log(socketUsers);
+		console.log('RoomUserSocketsArr:');
 		console.log(roomUserSockets);
+		console.log('SocketRooms:');
 		console.log(socketRooms);
 	});
 
 	socket.on("gameStateChangedClient",(data) => {
 		serverStateArr = data.stateArr;
 		checkGameWin = gameLogic();	//returns the player number who won the game
+
+		//if game is finished emitting that game is finished via gameDecided channel and stopping all DOM Listeners in client script.
 		if(checkGameWin)
 		{
 			io.to(socketRooms[socket.id]).emit("gameDecided", {
@@ -218,6 +229,8 @@ io.on("connection",(socket) => {
 				wonPlayerNumber : checkGameWin
 			})
 		}
+		//else if game is not finished emitting change in serverStateArr via gameStateChangedServer Channel and
+		//also emitting the update turn via updatedRoomTurn channel.
 		else
 		{
 			
@@ -242,32 +255,39 @@ io.on("connection",(socket) => {
 		let currentDeleteRoomID = socketRooms[socket.id];
 		let currentRoomDeleteUserCount = roomUserCount[currentDeleteRoomID];
 		let currentRoomSocketArr = roomUserSockets[currentDeleteRoomID];
+
+		//exception handling for case when room does'nt exist at all. (case where player goes offline and returns online to same page later and closing it later and many other similar cases)
 		if(currentRoomSocketArr === undefined)
 		{
 			return 0;
 		}
+
 		let currentRoomSocketArrDeleteIndex = currentRoomSocketArr.indexOf(socket.id);
 
 		//emitting playerDisconnected channel to let the other player know about it
-
 		io.to(currentDeleteRoomID).emit("playerDisconnected",{
 				disconnectedPlayerName : socketUsers[socket.id],
-				disconnectedPlayerNumber : currentRoomSocketArrDeleteIndex+1
+				disconnectedPlayerNumber : currentRoomSocketArrDeleteIndex+1,
 			});
 
+		//if only one player exits the room, we'll only remove him from the room but room will still be intact and roomCount is updated
 		if(currentRoomDeleteUserCount === 2)
 		{
 			roomUserSockets[currentDeleteRoomID] = currentRoomSocketArr.slice(0,currentRoomSocketArrDeleteIndex) + currentRoomSocketArr.slice(currentRoomSocketArrDeleteIndex + 1);
 			roomUserCount[socketRooms[socket.id]] = 1;
 		}
+
+		//if both player exits the room, we delete the room and also the roomCount key. 
 		else if(currentRoomDeleteUserCount === 1)
 		{
 			delete roomUserSockets[currentDeleteRoomID];
 			delete roomUserCount[socketRooms[socket.id]];
 		}
+
+		//if at all a player leaves the room, we delete that player from socketUsers array, and socketRooms array.
 		delete socketUsers[socket.id];
 		delete socketRooms[socket.id];
-		console.log("SocketRoomArr : " + roomUserSockets[currentDeleteRoomID]);
+		console.log("SocketRoomArr after Deletion : " + roomUserSockets[currentDeleteRoomID]);
 	});
 
 
@@ -341,7 +361,7 @@ app.get('/twoplayergame/:roomid/:playernumber', (req, res) => {
 });
 
 
-server.listen(PORT, () => {
+server.listen(PORT, "0.0.0.0", () => {
 	console.log(`server is running on port ${PORT}`);
 });
 
@@ -376,7 +396,7 @@ server.listen(PORT, () => {
 //**TO-DO -> sameSite -> none not working, default is lax, strict mode also availabe, fix this issue and transmit game to LAN
 			// Edit : found that in client script just wrote to connect to localhost , fixed to to automatically adjust and it worked. (DONE)
 
-//**TO-DO -> write code for on disconnection
+//**TO-DO -> write code for on disconnection (DONE)
 
 //**TO-DO -> make it possible to refresh the page for client by giving him/her a seperate cookie id and later identifying if he's already present in game
 			 // and maintain his game by sending gameState also as cookie (already mentioned above).
