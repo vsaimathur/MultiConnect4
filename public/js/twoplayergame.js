@@ -10,6 +10,8 @@ var player1Name = document.getElementById("player1-name");
 var player2Name = document.getElementById("player2-name");
 var gameStartedMsg = document.getElementById("game-started-msg");
 var wonPlayerUserName = document.getElementById("won-player-user-name");
+var copyBtn = document.getElementById("copy-btn");
+var copyText = document.getElementById("copy-text");
 
 
 var player1Script = false;
@@ -46,12 +48,18 @@ function getTDNumber(row,col)
 function getCookie(cookieKey)
 {
 	let cookies = document.cookie;
-	console.log(document.cookie);
 	let cookieStartingIndex = cookies.indexOf(cookieKey);
 	let roomID = cookies.substring(cookieStartingIndex + cookieKey.length + 1);
 	return roomID;
 }
 
+//copying room link to clipboard of client.
+copyBtn.addEventListener("click", (event) => {
+	event.preventDefault();
+	copyText.select();
+	copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+	document.execCommand("copy");
+});
 
 //Event Handlers
 

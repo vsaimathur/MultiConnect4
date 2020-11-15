@@ -2,6 +2,7 @@
 	<head>
 		<title></title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<!-- including this base tag, loaded css without giving those MIME type problem (not loading css) --> 
 		<base href="/">
 		<link rel="stylesheet" type="text/css" href="./css/twoplayergame.css"> 
@@ -32,12 +33,13 @@
 		  </div>
 		</nav>
 
-		<div class="text-center text-danger" style="font-size: xx-large;">
-				This is Connect 4 Play Game Page!
+		<div class = "text-center text-danger mt-2" style="font-size: x-large;">
+			RoomLink : <input class="rounded" id="copy-text" type = "text" value = "{{roomLink}}" readonly> 
+			<button class="btn btn-primary rounded" id="copy-btn"><i class="fa fa-copy" style="font-size:24px; color:white;"></i></button>
 		</div>
 
-		<div class = "text-center text-danger" style="font-size: x-large;">
-			RoomLink : <a href = "{{roomLink}}" id = "room-code">{{roomLink}}</a>
+		<div class="text-center text-danger mb-2" style="font-size: x-large;">
+				share this link with your friend to start the game!
 		</div>
 
 		<div class = "d-flex justify-content-around" id = "name-board"> 
@@ -123,7 +125,7 @@
 			</div>
 		</div>
 
-		<footer class="footer bg-primary text-center text-white"> This page is a part of Omit </footer>
+		<footer class="footer bg-primary text-center text-white"> This page is a part of Omnit </footer>
 
 
 		<script type="text/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>

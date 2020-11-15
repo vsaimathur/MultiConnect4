@@ -217,7 +217,7 @@ io.on("connection",(socket) => {
 	socket.on("gameStateChangedClient",(data) => {
 		serverStateArr = data.stateArr;
 		checkGameWin = gameLogic();	//returns the player number who won the game
-
+		
 		//if game is finished emitting that game is finished via gameDecided channel and stopping all DOM Listeners in client script.
 		if(checkGameWin)
 		{
