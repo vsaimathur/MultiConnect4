@@ -68,7 +68,6 @@ tdControlList.forEach((td) => {
 });
 
 
-
 //listeners
 
 //receiving opponentName from server.
@@ -209,6 +208,11 @@ socket.on("updatedRoomTurn", (data) => {
 		player2Name.style.backgroundColor = "white";
 	
 	}
+
+	// after their turn is updated we'll now again enable/add tdControlList click Event handler, so other player will be able to click the ball 
+	tdControlList.forEach((td) => {
+		td.addEventListener("click", controlButtonClicked);	
+	});
 });
 
 
@@ -293,6 +297,16 @@ const controlButtonClicked = (event) => {
 		{
 			return 0;
 		}
+
+		//disabling click eventHandlers for tdControlList so that the player won't be able to push multiple balls (clicking more than 2 times)
+		//this clickEventHandler will be enabled again or added again once other player receives gameStateChanged and turn is changed.
+		//doing this disabling after check if player didnt click on ball but on outside area, becoz even if he hits outside area (player didnt push the ball), click will be disabled if I place this code above at top.
+		//and players won't be able to continue the game as click is disabled. so to avoid such we placing code after checking whether he clicked on ball or not.
+		tdControlList.forEach((td) => {
+			td.removeEventListener("click", controlButtonClicked);	
+		});
+
+
 		for(i=stateArr.length-1;i>=0;i--)
 		{
 			//checking if clicked column is free or not and inserting ball in it if it's free

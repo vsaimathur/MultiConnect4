@@ -400,3 +400,5 @@ server.listen(PORT, () => {
 
 //**TO-DO -> make it possible to refresh the page for client by giving him/her a seperate cookie id and later identifying if he's already present in game
 			 // and maintain his game by sending gameState also as cookie (already mentioned above).
+
+//**TO-DO -> disable the control ball box event listener once a ball is dropped to prevent dropping of multiple balls without that turn(network delay problem).
