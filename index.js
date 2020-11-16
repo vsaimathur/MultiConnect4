@@ -180,16 +180,37 @@ io.on("connection",(socket) => {
 		//join the socket to room (according to sockets room concept in documentation)
 		socket.join(data.roomID);
 
-		//adding user to room for our use to display userName disconnected msg when then user disconnects. 
-		if(roomUserSockets[data.roomID] == [])	//exception handling for case where there is no room like that. example think of case when player 1 send link and get tired of waiting after sometime and leaves and then player 2 joins the room, here it's handled. 
+		// adding user to room for our use to display userName disconnected msg when then user disconnects.
+		try
 		{
-			//this also happens if one player is leaving the room while other player is entering the room.
-			io.to(data.roomID).emit("no-room-signal", {
-				errorSignal : "Sorry!, this room does'nt exist or no longer availabe"
-			});
-			return 0;	//emit an event to all players to say there's no such room!.
+			// if(roomUserSockets[data.roomID] == [])	//exception handling for case where there is no room like that. example think of case when player 1 send link and get tired of waiting after sometime and leaves and then player 2 joins the room, here it's handled. 
+			// {
+			// 	//this also happens if one player is leaving the room while other player is entering the room.
+			// 	// io.to(data.roomID).emit("no-room-signal", {
+			// 	// 	errorSignal : "Sorry!, this room does'nt exist or no longer availabe"
+			// 	// });
+
+			// 	//**TEMPORARY FIX FOR ALL TEMPORARY PROBLEMS.
+			// 	//thought again instead of sending no room signal to all player and make other problems arise, redirect to error page or just return 0 if any problem occurs.
+			// 	return 0;
+			// }
+			console.log(roomUserSockets[data.roomID]);
+			roomUserSockets[data.roomID].push(socket.id);
 		}
-		roomUserSockets[data.roomID].push(socket.id);
+		catch(err)
+		{
+
+			//if there is an error in connectring the socket or adding the socket to room. Deleting all created rooms, and all data related to that socket (so as to save space in arr) and handling the error to avoid taking wrong data!.
+			delete roomUserSockets[data.roomID];
+			delete roomUserCount[socketRooms[socket.id]];
+
+			delete socketUsers[socket.id];
+			delete socketRooms[socket.id];
+			console.log("SocketRoomArr after Deletion via Error : " + roomUserSockets[data.roomID]);
+
+			return 0;
+		} 
+		
 
 		//after 2 users joining a room, sending their ball color and usernames to each other and also sending whose turn it is at start.
 		if(roomUserSockets[data.roomID].length == 2)
@@ -336,6 +357,7 @@ app.get('/twoplayergame/:roomid/:playernumber', (req, res) => {
 
 	//if link is loaded more than 2 times it will check cookies if same client is reloading or some other user is entering
 	//the link and will take action accordingly. 
+	console.log(roomUserCount);
 	if(roomUserCount[curRoomId] > 2)
 	{
 		//if the 2nd client is refreshing the page or rediecting to same page again, he'll be able to view the game page.
@@ -406,3 +428,11 @@ server.listen(PORT, () => {
 			 // and maintain his game by sending gameState also as cookie (already mentioned above).
 
 //**TO-DO -> disable the control ball box event listener once a ball is dropped to prevent dropping of multiple balls without that turn(network delay problem).
+
+//***TEMPORARY PROBLEM ( However its highly unlikely that a player join when other player leaves ). 
+//NO ROOM SIGNAL PROBLEM, if this is managed according to solution, then another problem of allowing the 
+// join of multiple users in room is arising!, like it's not going to show room is already full 
+// (as the room count remains to stay as 2 if 3rd socket is joining when 2nd socket leaves.)
+//This can be managed by giving client a seperate cookie id and identifying each client (will implement later).
+//**TEMPORARY FIX FOR ALL TEMPORARY PROBLEMS. (for above problem) (permanent fix is to identify each player by assign them each their cookie id).
+//thought again instead of sending no room signal to all player and make other problems arise, redirect to error page or just return 0 if any problem occurs.
