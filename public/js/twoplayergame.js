@@ -282,6 +282,28 @@ socket.on("playerDisconnected", (data) => {
 
 });
 
+socket.on("no-room-signal", (data) => {
+	//showing the no room exists msg to all players.
+	gameStartedMsg.innerHTML = "Game Cannot be started!";
+	gameStartedMsg.style.color = "red";
+	wonPlayerUserName.innerHTML = data.errorSignal;
+
+	//removing all listeners of DOM.
+	tdControlList.forEach((td) => {
+		td.removeEventListener("click", controlButtonClicked);	
+	});
+
+	//OverWriting the Event Handlers Written Above just after initializations (retreiving cookie,etc)
+	//int onmouserover event, we are making balls hidden(so player would understand he can't do anything after game is finished)	
+	// this is just a **TEMPORARY SOLUTION
+	tdControlList.forEach((td) => {
+		td.addEventListener("mouseover", () => {
+			td.childNodes[0].style.visibility = "hidden";
+		});
+	});
+	//in onmouseout event, the balls are already hidden, so no need to overwrite that event
+})
+
 //emitters
 
 //on page loading completely, we prompt the user to enter his userName and emit the userName along with roomID extracted from cookies.

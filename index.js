@@ -181,9 +181,13 @@ io.on("connection",(socket) => {
 		socket.join(data.roomID);
 
 		//adding user to room for our use to display userName disconnected msg when then user disconnects. 
-		if(roomUserSockets[data.roomID] == undefined)	//exception handling for case where there is no room like that.
+		if(roomUserSockets[data.roomID] == [])	//exception handling for case where there is no room like that. example think of case when player 1 send link and get tired of waiting after sometime and leaves and then player 2 joins the room, here it's handled. 
 		{
-			return 0;
+			//this also happens if one player is leaving the room while other player is entering the room.
+			io.to(data.roomID).emit("no-room-signal", {
+				errorSignal : "Sorry!, this room does'nt exist or no longer availabe"
+			});
+			return 0;	//emit an event to all players to say there's no such room!.
 		}
 		roomUserSockets[data.roomID].push(socket.id);
 
