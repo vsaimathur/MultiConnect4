@@ -2,7 +2,8 @@
 
 body
 {
-	background-color: rgb(255, 204, 102);
+	/*background-color: rgb(255, 204, 102);*/
+	background-color: black;
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;

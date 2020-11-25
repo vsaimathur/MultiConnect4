@@ -1,6 +1,7 @@
 var toggleThemeButton = document.getElementById("toggle-theme-btn");
 var navbar = document.getElementById("top-navbar");
 var footer = document.getElementsByClassName("footer")[0];
+var buttonBox = document.getElementById("button-box");
 
 //Theme Setting Function
 
@@ -21,6 +22,9 @@ function setTheme(theme)
 		//background Theme
 		document.body.style.background = "linear-gradient(to right, #ffa751, #ffe259)";
 
+		//buttons border box addition in light theme.
+		buttonBox.setAttribute("style","border : 2px solid blue");
+
 		//footer Theme
 		footer.removeAttribute("class");
 		footer.setAttribute("class","footer bg-primary text-center text-white");
@@ -39,6 +43,9 @@ function setTheme(theme)
 
 		//background Theme
 		document.body.style.background = "black";
+
+		//buttons border box addition in dark theme.
+		buttonBox.removeAttribute("style");
 
 		//footer Theme
 		footer.removeAttribute("class");

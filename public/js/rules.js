@@ -1,6 +1,7 @@
 var toggleThemeButton = document.getElementById("toggle-theme-btn");
 var navbar = document.getElementById("top-navbar");
 var footer = document.getElementsByClassName("footer")[0];
+var rulesList = document.getElementById("rules-list");
 
 //Theme Setting Function
 
@@ -21,6 +22,9 @@ function setTheme(theme)
 		//background Theme
 		document.body.style.background = "linear-gradient(to right, #ffa751, #ffe259)";
 
+		//rules-list changing text color to default (black)
+		rulesList.removeAttribute("class");
+		rulesList.setAttribute("class","list-group");
 		//footer Theme
 		footer.removeAttribute("class");
 		footer.setAttribute("class","footer bg-primary text-center text-white");
@@ -39,6 +43,10 @@ function setTheme(theme)
 
 		//background Theme
 		document.body.style.background = "black";
+
+		//rules-list changing text color to white 
+		rulesList.removeAttribute("class");
+		rulesList.setAttribute("class","list-group text-white");
 
 		//footer Theme
 		footer.removeAttribute("class");

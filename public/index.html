@@ -8,51 +8,58 @@
 		<!-- main heading animation css -->
 		<link rel="stylesheet" type="text/css" href="./css/main-animation-heading.css">
 	</head>
-	<body class="d-flex flex-column">
+	<body>
 		<!-- Navbar -->
+		<div class="container-fluid p-0 d-flex flex-column h-100">
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id = "top-navbar">
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+			    <ul class="navbar-nav">
+			      <li class="nav-item">
+			        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="rules.html">Rules</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="play.html">Play</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="dashboard.html">1P Dashboard</a>
+			      </li>
+			    </ul>
+			    <div><button class="btn btn-light" id = "toggle-theme-btn">Light</button></div>
+			  </div>
+			</nav>
 
-		<nav class="navbar navbar-expand-lg navbar-light bg-primary">
-		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-		    <span class="navbar-toggler-icon"></span>
-		  </button>
-		  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-		    <ul class="navbar-nav">
-		      <li class="nav-item">
-		        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="rules.html">Rules</a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="play.html">Play</a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="dashboard.html">1P Dashboard</a>
-		      </li>
-		    </ul>
-		  </div>
-		</nav>
+			<div class="d-flex flex-column h-100 justify-content-around align-items-center" id = "center-box">	
+				<!-- Main animation heading -->
+				<div class="text-center mt-2" id = "animated-text" style="font-size: xx-large;">
+					<h1 class="ml1">
+					    <span class="text-wrapper">
+					    	<span class="line line1"></span>
+					    	<span class="letters text-light">MULTI CONNECT 4</span>
+					    	<span class="line line2"></span>
+					    </span>
+					</h1>
+				</div>
 
-		<!-- Main animation heading -->
-		<div class="text-center mt-2">
-			<h1 class="ml1">
-			    <span class="text-wrapper">
-			    	<span class="line line1"></span>
-			    	<span class="letters text-light">MULTI CONNECT 4</span>
-			    	<span class="line line2"></span>
-			    </span>
-			</h1>
-		</div>
-
-		<!-- main front page contents -->
-		<div class="container-fluid mt-auto d-flex justify-content-around">
-			<div class="front-image d-flex justify-content-center w-50"><img src = "./images/multi-connect4-front.jpg" width = "80%"alt = "sorry!, image was not loaded"></div>
-			<div class="front-text d-flex flex-column justify-content-center align-items-center"><p class="text-center">Want to play a simple game to refresh yourself, then Lets Get in!</p>
+				<!-- main front page contents -->
+				<div class="container-fluid d-flex justify-content-around" id = "game-center-content">
+					<!-- This image is visible in Light Theme Not in Dark Theme -->
+					<!-- <div class="front-image d-flex justify-content-center w-50"><img src = "./images/multi-connect4-front.jpg" width = "80%"alt = "sorry!, image was not loaded"></div> -->
+					<div class="front-text d-flex flex-column justify-content-center align-items-center"><p class="text-center text-light" id = "front-tagline">Want to play a simple game to refresh yourself, then Lets Get in!</p>
+					</div>
+				</div>
 			</div>
-		</div>
-		<footer class="footer bg-primary text-center text-white"> This page is a part of Omnit </footer>
-		
 
+			<footer class="footer bg-dark text-center text-white"> This page is a part of Omnit </footer>
+		
+		</div>
+		
+		<script type="text/javascript"></script>
 		<!-- JS Files for main animation heading -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
 		<script src="./js/main-animation-heading.js"></script>
@@ -60,6 +67,10 @@
 	   	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+		<!-- JS File for theme change -->
+		<script type="text/javascript" src = "./js/index.js"></script>
+
 	</body>
 </html>
 
