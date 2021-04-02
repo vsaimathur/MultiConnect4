@@ -5,10 +5,13 @@ It's implemented using Node.js, JS, Socket.io and Firebase as DB.
 
 Link to Play: http://multi-connect4.herokuapp.com/
 
-Requirements : 
+##Requirements : 
 Node.js installed on your computer
 
-Installation steps : 
+##Installation steps : 
 1. clone the repository
-2. In command line press : /*npm install*/
-3. Open 2 tabs in localhost & done!
+2. In command line press : 
+3. 
+4.  $npm install
+5. 
+6. Open 2 tabs in localhost & done!
