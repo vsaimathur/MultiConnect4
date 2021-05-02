@@ -11,4 +11,5 @@ Node.js installed on your computer
 Installation steps : 
 1. clone the repository
 2. Navigate to downloaded repo in command line & press : npm install
-3. Open 2 tabs in localhost & done!
+3. To run the server and client, press : npm run dev
+4. Open 2 tabs in localhost & done!
