@@ -10,7 +10,7 @@ const path = require("path");
 const app = express();
 const server = http.createServer(app);
 const io = socket_io(server);
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 var roomUserSockets = {}; // {roomNo : [socketID_p1,socketID_p2]}
 var socketUsers = {}; 	//{socketID : userName}
