@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const {v4 : uuidv4} = require("uuid"); 			// same as import {v4 as uuidv4} from "uuid" (ES6).
 const cookieParser = require("cookie-parser");
 const path = require("path"); 
+require('dotenv').config();
 
 const app = express();
 const server = http.createServer(app);
@@ -328,7 +329,7 @@ app.get("/twoplayerinit", (req, res) => {
 	roomUserSockets[curRoomId] = [];		
 
 	//creating link for player 2 to join.
-	curPlayerTwoRoomLink = req.headers.host + "/twoplayergame/" + curRoomId + "/2";	
+	curPlayerTwoRoomLink = process.env.SERVER_HOSTNAME + "/twoplayergame/" + curRoomId + "/2";	
 
 	//maintaining the userCount on a room (1st player added to room so count is 1)	**MAY CHANGE
 	roomUserCount[curRoomId] = 1; 
